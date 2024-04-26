@@ -1,0 +1,52 @@
+.hostname-form,
+#template-list {
+    width: 600px;
+    margin: 50px auto;
+}
+
+.hostname-form {
+    padding: 35px;
+    border: 5px solid #2590cdb8;
+    border-radius: 50px;
+    background: white;
+}
+
+.nameInput {
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    margin-right: 10px;
+}
+
+.search-button {
+    padding: 10px 30px;
+    margin: 0;
+    vertical-align: baseline;
+}
+
+.template-button {
+    width: 100%;
+    margin-bottom: 20px;
+}
+h2 {
+    text-align: center;
+}
+
+.file-load-container {
+    padding-top: 40px;
+    display: none;
+}
+
+.file-load-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.file-load-wrapper:not(:last-of-type) {
+    margin-bottom: 10px;
+}
+
+.file-load-wrapper label {
+    font-weight: bolder;
+}
+

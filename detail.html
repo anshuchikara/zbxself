@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <script src="./util.js" defer></script>
+  <script src="./statusChange.js" defer></script>
+  <script src="./detail.js" defer type="module"></script>
+  <script>
+function show(value) {
+  document.querySelector(".dropdown-menu").value = value;
+}
+  </script>
+  <link rel="stylesheet" href="./common.css">
+  <link rel="stylesheet" href="./detail.css">
+  <title>Zabbix Self Service</title>
+</head>
+
+<body>
+  <header>
+    <img class="image-logo" src="https://cdn-aem.optum.com/content/dam/optum4/images/logos/optum-logo-ora-rgb1.svg" />
+    <span class="zabbix-header-test">Zabbix Self Service</span>
+  </header>
+  <section class="trigger-section">
+    <h2>Update DB Credentials</h2>
+    <div id="macros-table">
+      <table class="table">
+        <thead>
+          <tr class="table-dark">
+            <th>Severity</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <h2>Trigger</h2>
+    <div id="trigger-table">
+      <table class="table">
+        <thead>
+          <tr class="table-dark">
+            <th>Severity</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Tag</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+  <template id="table-data-template">
+    <tr class="table-light">
+      <td>
+        Severity
+      </td>
+      <td>
+        Name
+      </td>
+      <td style="cursor: pointer;">
+        Status
+      </td>
+      <td>
+        Tags
+      </td>
+    </tr>
+  </template>
+  <template id="table-macro-template">
+    <tr class="table-light">
+      <td>
+        Macro
+      </td>
+      <td>
+        value
+      </td>
+    </tr>
+  </template>
+  <template id="tag-row-template">
+    <div class="tagDetails">
+      <span id="tagName"></span>
+      <input id="tagValue" />
+    </div>
+  </template>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Change Severity</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <select class="form-select" id="selectPriority" aria-label="Default select example">
+            <option selected></option>
+            <option value="5">Critical (P1)</option>
+            <option value="4">Major (P2)</option>
+            <option value="3">Minor (P3)</option>
+            <option value="2">Warning (P4)</option>
+            <option value="1">Informational (P5)</option>
+            <option value="0">Not Classified</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id="saveSeverity" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Change Severity</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table" id="selectTag">
+
+          </div>          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id="saveTag" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal -->
+<div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Change Severity</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <textarea id="triggerDescription"> </textarea>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="saveDescription" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="macroValueModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Change Macro value</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+	<input id="macroValue" type="password"/>
+<!--	  <textarea id="macroValue"> </textarea> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="saveMacroValue" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

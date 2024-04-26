@@ -1,0 +1,34 @@
+:root {
+    font-family: sans-serif;
+}
+
+html {
+    background: aliceblue;
+}
+
+body {
+    min-height: 100vh;
+    background: #5a5a5a94;
+    max-width: 1000px;
+    margin: auto;
+    box-shadow: 0px 0px 18px 4px black;
+}
+
+header {
+    height: 200px;
+    background: white;
+    position: relative;
+}
+
+.image-logo {
+    height: 50px;
+    margin: 70px 0 0 60px;
+}
+
+.zabbix-header-test {
+    position: absolute;
+    top: 71px;
+    margin-left: 175px;
+    font-size: 30px;
+    font-weight: 700;
+}

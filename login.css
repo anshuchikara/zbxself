@@ -1,0 +1,38 @@
+.hostname-form,
+#template-list {
+    width: 600px;
+    margin: 50px auto;
+}
+
+.login-form {
+    padding: 60px;
+    border: 5px solid #2590cdb8;
+    border-radius: 50px;
+    background: white;
+    width: 60%;
+    margin-top: 10%;
+    margin-left: 20%;
+}
+
+.nameInput {
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    margin-right: 10px;
+    margin-left: 30%;
+}
+
+.search-button {
+    padding: 10px 30px;
+    margin: 0;
+    vertical-align: baseline;
+    margin-left: 38%;
+}
+
+.template-button {
+    width: 100%;
+    margin-bottom: 20px;
+}
+h2 {
+    text-align: center;
+}

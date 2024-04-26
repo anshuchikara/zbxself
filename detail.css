@@ -1,0 +1,15 @@
+.trigger-section,
+.trigger-table {
+    padding: 20px;
+}
+h2 {text-align: center;}
+#tagValue {
+    float: right;
+}
+.tagDetails {
+    height: 40px;
+}
+#triggerDescription{
+    width: 100%;
+    height: max-content;
+}
